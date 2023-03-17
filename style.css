@@ -309,7 +309,7 @@
 }
 
 .card__like-button {
-  background-image: url(..mesto/images/Group.svg);
+  background-image: url(../mesto/images/Group.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -359,8 +359,7 @@
 }
 
 .popup {
-
-  display: flex;
+  display: none;
   position: fixed;
   margin: 0;
   padding: 0;
@@ -371,7 +370,10 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
+}
 
+.popup__is-opened{
+  display: flex;
 }
 
 .popup__container {
@@ -387,7 +389,7 @@
 }
 
 .popup__close-button {
-  background-image: url(..mesto/images/Close_Icon.svg);
+  background-image: url(../mesto/images/Close_Icon.svg);
   background-size: contain;
   position: absolute;
   top: -40px;
