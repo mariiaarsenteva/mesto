@@ -1,4 +1,4 @@
-.element__container {
+.elements__container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     margin: 0 auto;
@@ -10,13 +10,13 @@
 }
 
 @media screen and (max-width: 929px) {
-    .element__container {
+    .elements__container {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media screen and (max-width: 623px) {
-    .element__container {
+    .elements__container {
         max-width: calc(100% - 38px);
         grid-template-columns: repeat(1, 1fr);
     }
