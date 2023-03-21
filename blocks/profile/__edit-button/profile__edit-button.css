@@ -1,8 +1,9 @@
 .profile__edit-button {
-  background-image: url(../mesto/images/Edit_Button.svg);
+  background-image: url(../../../images/Edit_Button.svg);
   align-self: center;
   width: 24px;
   height: 24px;
+  border: none;
 }
 
 .profile__edit-button:hover {

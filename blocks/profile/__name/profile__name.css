@@ -8,6 +8,9 @@
   line-height: 48px;
   /* identical to box height, or 114% */
   color: #ffffff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 1023px) {
