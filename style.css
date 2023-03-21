@@ -295,6 +295,7 @@
   align-items: center;
   padding: 25px 0 25px 21px;
   background-color: #ffffff;
+  
 }
 
 .card__title {
@@ -305,11 +306,14 @@
   color: #000000;
   margin: 0;
   padding: 0;
-  width: 196px
+  width: 196px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .card__like-button {
-  background-image: url(../mesto/images/Group.svg);
+  background-image: url(../mesto/images/Like.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -325,6 +329,9 @@
   opacity: 0.5;
 }
 
+.card__like-button:active{
+  background-image: url(../mesto/images/like_active.svg);
+}
 .footer {
   margin: 0 auto;
   padding: 0;
