@@ -9,14 +9,13 @@ let profileName = profileElement.querySelector('.profile__name');
 let profileBio = profileElement.querySelector('.profile__bio');
 
 const openPopup = function () {
-    profileName.textContent = nameInput.value;
-    profileBio.textContent = jobInput.value;
-    popupElement.classList.add('popup__is-opened');
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileBio.textContent;
+    popupElement.classList.add('popup__opened');
 };
 
 const closePopup = function () {
-
-    popupElement.classList.remove('popup__is-opened');
+    popupElement.classList.remove('popup__opened');
 };
 
 function handleFormSubmit(evt) {
@@ -24,7 +23,7 @@ function handleFormSubmit(evt) {
     profileName.textContent = nameInput.value;
     profileBio.textContent = jobInput.value;
     closePopup();
-}
+};
 
 formElement.addEventListener('submit', handleFormSubmit);
 

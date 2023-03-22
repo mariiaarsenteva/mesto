@@ -1,4 +1,4 @@
-.popup__edit-profile {
+.popup__title {
     width: 358px;
     height: 29px;
     margin: 0;
@@ -12,7 +12,7 @@
 }
 
 @media screen and (max-width: 767px) {
-    .popup__edit-profile {
+    .popup__title {
         width: 238px;
         font-size: 18px;
         line-height: 22px;
