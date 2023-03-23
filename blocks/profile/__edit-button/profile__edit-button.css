@@ -4,6 +4,7 @@
   width: 24px;
   height: 24px;
   border: none;
+  background-size: contain;
 }
 
 .profile__edit-button:hover {

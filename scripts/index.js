@@ -11,11 +11,11 @@ let profileBio = profileElement.querySelector('.profile__bio');
 const openPopup = function () {
     nameInput.value = profileName.textContent;
     jobInput.value = profileBio.textContent;
-    popupElement.classList.add('popup__opened');
+    popupElement.classList.add('popup_opened');
 };
 
 const closePopup = function () {
-    popupElement.classList.remove('popup__opened');
+    popupElement.classList.remove('popup_opened');
 };
 
 function handleFormSubmit(evt) {
