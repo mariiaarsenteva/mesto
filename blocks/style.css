@@ -35,3 +35,13 @@
   color: #ffffff;
   padding-top: 15px;
 }
+
+.elements__delete-button{
+  background-image: url(../../../images/Close_Icon.svg);
+    position: absolute;
+    width: 18px;
+    height: 19px;
+    border: none;
+    background-size: contain;
+
+}
