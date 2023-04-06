@@ -90,9 +90,13 @@ const photoElement = listElement.querySelector('.elements__photo');
 const likeButtonElement = listElement.querySelector('.elements__like-button');
 const titleElement = listElement.querySelector('.elements__title');
 
+likeButtonElement.addEventListener('click', () => likeButtonElement.classList.toggle('elements__like-button_active'));
+trashElement.addEventListener('click', () => trashElement.closest('.elements__card-container').remove());
+
  photoElement.src = object.link;
  photoElement.alt = object.name;
  titleElement.textContent = object.name;
+
 
  return listElement;
 };
@@ -110,9 +114,10 @@ profilePopupElement.addEventListener('submit', handleFormSubmit);
 cardPopupElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const inputInAddPopup = {name: titleInput.value , link: linkInput.value};
-  titleInput.value = '';
-  linkInput.value = '';
+  //titleInput.value = '';
+  //linkInput.value = '';
   const createNewCard = createCard(inputInAddPopup);
   ulElement.append(createNewCard);
   closePopup(cardPopupElement);
+  evt.target.reset();
 });
