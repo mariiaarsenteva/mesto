@@ -1,5 +1,4 @@
 .popup__image-container {
-  outline: 1px solid red;
   display: flex;
   position: relative;
   margin: 0;
@@ -7,7 +6,6 @@
 }
 
 .figure {
-  outline: 1px solid red;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -17,7 +15,6 @@
 }
 
 .figure__image {
-  outline: 1px solid rgb(255, 0, 0);
   margin: 0;
   padding: 0;
   max-width: 75vw;
@@ -25,29 +22,27 @@
 }
 
 .figure__caption {
-  outline: 1px solid red;
-  font-style: Regular;
+  font-weight: 400;
   font-size: 12px;
   line-height: 15px;
   line-height: 100%;
-  align-self: Left;
-  vertical-align: Top;
-  color: #ffffff;
-  padding-top: 15px;
+  align-self: flex-start;
+  vertical-align: top;
+  color: white;
+  padding-top: 10px;
 }
 
-.elements__delete-button{
+.elements__delete-button {
   background-image: url(../images/Trash.svg);
-    position: absolute;
-    width: 18px;
-    height: 19px;
-    border: none;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    top: 20px;
-    right: 20px;
-    padding: 0;
-    margin: 0;
-
+  position: absolute;
+  width: 18px;
+  height: 19px;
+  border: none;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  top: 20px;
+  right: 20px;
+  padding: 0;
+  margin: 0;
 }

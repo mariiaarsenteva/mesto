@@ -97,6 +97,12 @@ trashElement.addEventListener('click', () => trashElement.closest('.elements__ca
  photoElement.alt = object.name;
  titleElement.textContent = object.name;
 
+photoElement.addEventListener('click', () => {
+  popupLink.src = object.link;
+  popupTitle.textContent = object.name;
+  popupLink.alt = object.name;
+ openPopup(imagePopupElement)
+});
 
  return listElement;
 };
@@ -121,3 +127,4 @@ cardPopupElement.addEventListener('submit', (evt) => {
   closePopup(cardPopupElement);
   evt.target.reset();
 });
+
