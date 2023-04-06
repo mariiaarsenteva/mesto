@@ -83,7 +83,6 @@ popupCloseButtonElement.forEach((element) => {
 });
 
 
-
 function createCard(object) {
  const listElement = cardElement.querySelector('.elements__card-container').cloneNode(true);
 const trashElement = listElement.querySelector('.elements__delete-button');
@@ -106,5 +105,14 @@ initialCards.forEach((element) =>{
 
 
 profilePopupElement.addEventListener('submit', handleFormSubmit);
-cardPopupElement.addEventListener('submit', handleFormSubmit);
 
+
+cardPopupElement.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const inputInAddPopup = {name: titleInput.value , link: linkInput.value};
+  titleInput.value = '';
+  linkInput.value = '';
+  const createNewCard = createCard(inputInAddPopup);
+  ulElement.append(createNewCard);
+  closePopup(cardPopupElement);
+});
