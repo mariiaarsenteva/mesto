@@ -1,17 +1,12 @@
-const popupElement = document.querySelector(".popup");
 const profileElement = document.querySelector(".profile");
 const profilePopupElement = document.querySelector(".profile-popup");
 const cardPopupElement = document.querySelector(".card-popup");
 const imagePopupElement = document.querySelector(".image-popup");
-const formEditProfileElement = document.querySelector(".popup__form");
-const formAddCardElement = document.querySelector(".popup__form");
+const formEditProfileElement = profilePopupElement.querySelector(".popup__form");
+const formAddCardElement = cardPopupElement.querySelector(".popup__form");
 
-const popupEditButtonElement = profileElement.querySelector(
-  ".profile__edit-button"
-);
-const popupCloseButtonElement = document.querySelectorAll(
-  ".popup__close-button"
-);
+const popupEditButtonElement = profileElement.querySelector(".profile__edit-button");
+const popupCloseButtonElements = document.querySelectorAll(".popup__close-button");
 const popupAddButtonElement = document.querySelector(".profile__add-button");
 const profileName = profileElement.querySelector(".profile__name");
 const profileJob = profileElement.querySelector(".profile__job");
@@ -64,7 +59,7 @@ function handleFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closePopup(popupElement);
+  closePopup(profilePopupElement);
 }
 profilePopupElement.addEventListener("submit", handleFormSubmit);
 
@@ -75,12 +70,14 @@ popupEditButtonElement.addEventListener("click", () => {
 });
 
 popupAddButtonElement.addEventListener("click", () => {
-  titleInput.value = popupTitle.textContent;
-  linkInput.value = popupLink.textContent;
+  titleInput.value = '';
+  linkInput.value = '';
   openPopup(cardPopupElement);
+
+
 });
 
-popupCloseButtonElement.forEach((element) => {
+popupCloseButtonElements.forEach((element) => {
   const popupElement = element.closest(".popup");
   element.addEventListener("click", () => {
     closePopup(popupElement);
@@ -130,5 +127,5 @@ cardPopupElement.addEventListener("submit", (evt) => {
   const createNewCard = createCard(inputInAddPopup);
   ulElement.append(createNewCard);
   closePopup(cardPopupElement);
-  inputInAddPopup.target.reset();
+  evt.target.reset();
 });
