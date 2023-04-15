@@ -1,27 +1,35 @@
 .popup__submit-button_disabled {
   background-color: #FFFFFF;
   opacity: 0.2;
-
+  color: #000000;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  cursor: not-allowed
 }
 
-.form__input_invalid {
+.popup__input_invalid {
   border-bottom-color: red;
 }
 
 .popup__error {
   width: 358px;
   font-family: Inter;
-  font-weight: Regular;
+  font-weight: 400;
   font-size: 12px;
   line-height: 15px;
-  line-height: 100%;
   color: #ff0000;
   border: none;
   display: flex;
+  visibility: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 @media screen and (max-width: 767px) {
   .popup__error {
     width: 238px;
   }
+}
+
+.popup__error_visible {
+  visibility: visible;
 }
