@@ -9,11 +9,6 @@ const validationConfig = {
   textErrorClass: "popup__error_visible", // span
 };
 
-console.log("hello");
-
-// enableValidation();
-
-
 //включила влидацию
 function enableValidation({ formSelector, ...rest }) {
   const forms = Array.from(document.querySelectorAll(formSelector));
@@ -26,7 +21,7 @@ function enableValidation({ formSelector, ...rest }) {
 }
 
 //утановила слушатель
-function setEventListeners( form,{ inputSelector, submitButtonSelector, ...rest }) {
+function setEventListeners(form, { inputSelector, submitButtonSelector, ...rest }) {
   const formInputs = Array.from(form.querySelectorAll(inputSelector));
   const formButton = form.querySelector(submitButtonSelector);
   formInputs.forEach((input) => {
@@ -50,18 +45,18 @@ const checkInputValidity = (form, input, { ...rest }) => {
   if (input.validity.valid) {
     hideInputError(form, input, rest);
   } else {
-    showInputError(form, input,input.validationMessage,rest);
+    showInputError(form, input, input.validationMessage, rest);
   }
 };
 
 const hasInvalidInput = (formInputs) => {
-    return Array.from(formInputs).some((input) => !input.validity.valid);
-  };
+  return Array.from(formInputs).some((input) => !input.validity.valid);
+};
 
 
 
 //скрываю ошибку
-function hideInputError(form, input,{ inputErrorClass, textErrorClass, errorSelectorTemplate}) {
+function hideInputError(form, input, { inputErrorClass, textErrorClass, errorSelectorTemplate }) {
   const error = form.querySelector(`${errorSelectorTemplate}${input.name}`)
   input.classList.remove(inputErrorClass);
   error.textContent = '';
@@ -78,11 +73,11 @@ function showInputError(form, input, errorMessage, { inputErrorClass, textErrorC
 
 
 
-function enabledButton(button, {disabledButtonClass}) {
+function enabledButton(button, { disabledButtonClass }) {
   button.classList.remove(disabledButtonClass);
   button.removeAttribute('disabled');
 }
-function disabledButton(button, {disabledButtonClass}) {
+function disabledButton(button, { disabledButtonClass }) {
   button.classList.add(disabledButtonClass);
   button.setAttribute('disabled', true);
 }
