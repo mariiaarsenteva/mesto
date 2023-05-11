@@ -1,3 +1,4 @@
+
 const validationConfig = {
   formSelector: ".popup__form", // все формы в документе
   inputSelector: ".popup__input", // inputList
