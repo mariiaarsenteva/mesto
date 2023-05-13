@@ -16,7 +16,9 @@ export default class Card {
   }
 
   _handleTrashButton = () => {
-    this._trashElement.closest(".elements__card-container").remove();  // this._cloneElement.remove();
+    //this._trashElement.closest(".elements__card-container").remove();
+    //this._cloneElement - это ссылка на саму карточку, поэтому не нужно ничего искать, можно сразу написать:
+    this._cloneElement.remove();
     this._cloneElement = null; // убирает из дом дерева карточку
   }
 

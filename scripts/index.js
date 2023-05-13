@@ -47,7 +47,7 @@ function openPopup(popup) {
 // функция закрытия попапа через крестик
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  document.addEventListener('keydown', closePopupClickOnEscape);
+  document.removeEventListener('keydown', closePopupClickOnEscape);
 }
 
 // функция открытия попапа картинки
