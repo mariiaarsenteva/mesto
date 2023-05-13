@@ -1,5 +1,5 @@
 export default class Card {
-  constructor (cardData, selectorTemplate, openImagePopup){
+  constructor(cardData, selectorTemplate, openImagePopup) {
     this._cardData = cardData;
     this._link = cardData.link;
     this._name = cardData.name;
@@ -7,7 +7,7 @@ export default class Card {
     this._openImagePopup = openImagePopup;
   }
 
-  _getTemplateClone(){
+  _getTemplateClone() {
     return document.querySelector(this._selectorTemplate).content.querySelector('.elements__card-container').cloneNode(true); // возвращает клонированную разметку
   }
 
@@ -16,21 +16,21 @@ export default class Card {
   }
 
   _handleTrashButton = () => {
-   this._trashElement.closest(".elements__card-container").remove();  // this._cloneElement.remove();
-   this._cloneElement = null; // убирает из дом дерева карточку
+    this._trashElement.closest(".elements__card-container").remove();  // this._cloneElement.remove();
+    this._cloneElement = null; // убирает из дом дерева карточку
   }
 
   _handleImagePopup = () => {
     this._openImagePopup(this._cardData);
   }
 
-  _setEventListener(){
+  _setEventListener() {
     this._likeButtonElement.addEventListener('click', this._handleLikeButton);
     this._trashElement.addEventListener('click', this._handleTrashButton);
     this._photoElement.addEventListener('click', this._handleImagePopup);
   }
 
-  createCard(){
+  createCard() {
     this._cloneElement = this._getTemplateClone();
     this._trashElement = this._cloneElement.querySelector(".elements__delete-button");
     this._photoElement = this._cloneElement.querySelector(".elements__photo");
