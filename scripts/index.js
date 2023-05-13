@@ -144,8 +144,8 @@ class FormValidator{
     this._disabledButtonClass = config.disabledButtonClass;
     this._inputErrorClass = config.inputErrorClass;
     this._textErrorClass = config.textErrorClass;
-    this._button = this._form.querySelector(this._submitButtonSelector);
-    this._inputList = this._form.querySelectorAll(this._inputSelector);
+    this._button = document.querySelector(this._submitButtonSelector);
+    this._inputList = document.querySelectorAll(this._inputSelector);
 
   }
 
@@ -177,7 +177,7 @@ class FormValidator{
     this._button.removeAttribute('disabled');
   }
 
-  _disabledButton(){_enabledButton
+  _disabledButton(){
     this._button.classList.add(this._disabledButtonClass);
     this._button.setAttribute('disabled',true);
 
