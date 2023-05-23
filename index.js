@@ -2,6 +2,7 @@ import { initialCards } from './scripts/utils/initialCards.js'
 import Card from './scripts/components/Card.js'
 import FormValidator from './scripts/components/FormValidator.js'
 import PopupWithImage from './scripts/components/PopupWithImage.js';
+import Section from './scripts/components/Section.js';
 
 
 const profileElement = document.querySelector(".profile");
@@ -25,9 +26,11 @@ const linkInput = document.querySelector("#linkInput");
 
 const cardList = document.querySelector(".elements__container");
 const selectorTemplate = "#cardTemplate";
-const popupElement = ".popup";
-const popupProfileSelector = ".profile-popup";
+// const popupElement = ".popup";
+// const popupProfileSelector = ".profile-popup";
 const popupImageSelector = '.image-popup'
+const cardContainerSelector =  '.elements__container'
+
 
 // переменая с объектом для валидации
 const validationConfig = {
@@ -46,6 +49,17 @@ const validationConfig = {
 const popupImage = new PopupWithImage(popupImageSelector)
 popupImage.setEventListeners()
 
+const section = new Section({
+  items: initialCards,
+  renderer: (element) => {
+    const card = new Card(element, selectorTemplate, popupImage.open);
+    const cardElement = card.createCard();
+    return cardElement
+  }
+},cardContainerSelector
+)
+
+section.addCardFromArray()
 
 // функция сохранения данных в форме профиля
 function handleProfileFormSubmit(evt) {
@@ -55,29 +69,9 @@ function handleProfileFormSubmit(evt) {
   closePopup(profilePopupElement);
 }
 
-//функция создания карточки
-function createNewCard(element) {
-  const card = new Card(element, selectorTemplate, popupImage.open);
-  const cardElement = card.createCard();
-  return cardElement
-}
 
-//функция добавления карточки
-function addCard(container, card) {
-  container.prepend(card)
-}
 
-initialCards.forEach((element) => {
-  addCard(cardList, createNewCard(element));
-});
 
-// //создаем экземпляр класса FormValidator для попапа редактирования и запускаем валидации
-// const formProfileInfoValidator = new FormValidator(validationConfig, formEditProfileElement);
-// formProfileInfoValidator.enableValidation();
-
-// //создаем экземпляр класса FormValidator для попапа добавления карточки и запускаем валидации
-// const formAddCardValidator = new FormValidator(validationConfig, formAddCardElement);
-// formAddCardValidator.enableValidation();
 
 // добавление карточек через кнопку создать
 cardPopupElement.addEventListener("submit", (evt) => {
