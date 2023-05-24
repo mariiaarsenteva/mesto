@@ -20,7 +20,7 @@ module.exports = {
   },
   plugins: [new HtmlWebpackPlugin({
     title: 'My App',
-    template: './index.html'
+    template: './src/index.html'
   }),
   new CleanWebpackPlugin(),
   new MiniCssExtractPlugin()
