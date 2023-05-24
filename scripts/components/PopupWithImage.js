@@ -4,7 +4,7 @@ export default class PopupWithIage extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
     this._popupImage = this._popup.querySelector(".figure__image");
-    this._imagePopupCaption = this._popup.querySelectorAll(".figure__caption");
+    this._imagePopupCaption = this._popup.querySelector(".figure__caption");
   }
 
   open = (cardData) => {
