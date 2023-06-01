@@ -13,7 +13,9 @@
             <main class="main">
                 <section class="profile">
                   <div class="profile__container">
-                    <img class="profile__avatar" src="<%=require('./images/Avatar.png')%>" alt="Аватар пользователя">
+                    <button class="profile__avatar-button button">
+                      <img class="profile__avatar" src="<%=require('./images/Avatar.png')%>" alt="Аватар пользователя">
+                    </button>
                     <div class="profile__info">
                         <div class="profile__personal-info">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -67,13 +69,37 @@
               </figure>
             </div>
           </div>
+          <div class="popup avatar-popup">
+            <div class="popup__container">
+                <button class="popup__close-button button" type="button" id="close-avatar" aria-label="Закрыть"></button>
+                <form  novalidate class="popup__form" name="avatar">
+                    <h2 class="popup__title">Обновить аватар</h2>
+                    <input type="url" id="avatar" placeholder="Ссылка на картинку" name="avatar" value="" class="popup__input popup__input_avatar"  required>
+                    <span class="popup__error popup__error_avatar"></span>
+                    <button class="popup__submit-button button" type="submit" aria-label="Сохранить">Сохранить</button>
+                </form>
+            </div>
+        </div>
+        <div class="popup delete-popup">
+            <div class="popup__container">
+                <button class="popup__close-button button" type="button" id="delete-card" aria-label="Закрыть"></button>
+                <form  novalidate class="popup__form" name="deleteCardForm">
+                    <h2 class="popup__title popup__title_delete">Вы уверены?</h2>
+                    <button class="popup__submit-button button" type="submit" aria-label="Согласие">Да</button>
+                </form>
+            </div>
+        </div>
           <template id="cardTemplate">
             <li class="elements__card-container">
               <button class="elements__delete-button button" type="button" aria-label="Удалить"></button>
               <img class="elements__photo" src="#" alt="#">
               <div class="elements__info">
                   <h2 class="elements__title"></h2>
-                  <button class="elements__like-button button" type="button" aria-label="Нравится"></button>
+                  <div class="elements__like-container">
+                    <button class="button elements__like-button" type="button" aria-label="Нравится">
+                    </button>
+                    <p class="elements__like-counter">0</p>
+                  </div>
               </div>
             </li>
           </template>

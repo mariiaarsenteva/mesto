@@ -3,13 +3,16 @@
   padding: 0;
   width: 120px;
   height: 120px;
-  padding-right: 30px;
+
   align-self: center;
+  border-radius: 50%;
+  /* outline: 1px red solid; */
 }
 
-@media screen and (max-width: 1023px) {
+/* @media screen and (max-width: 1023px) {
   .profile__avatar {
     padding-right: 0;
     padding-bottom: 26px;
-  }
-}
+      padding-right: 30px;
+   }
+} */

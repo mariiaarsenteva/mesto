@@ -14,6 +14,9 @@ import {
   validationConfig,
   formEditProfileElement,
   formAddCardElement,
+  formEditAvatarElement,
+  popupEditAvatarButtomElement,
+  popupAvatarSelector
 } from "../scripts/utils/Constants.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
@@ -21,32 +24,66 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupDeleteCard from '../components/PopupDeleteCard';
+
+// const popupEditAvatarButtomElement = document.querySelector('.profile__avatar-button');
+const editAvatar = document.querySelector('.profile__avatar');
 
 const userInfo = new UserInfo(profileNameSelector, profileJobSelector);
-
 const popupImage = new PopupWithImage(popupImageSelector);
+const popupDeleteSelector = '.delete-popup'
 
 const section = new Section(
   {items: initialCards,
     renderer: (element) => {
-      const card = new Card(element, selectorTemplate, popupImage.open);
-      const cardElement = card.createCard();
-      return cardElement;
+     section.addItem(creatNewCard(element))
     },
   },
   cardContainerSelector
 );
 section.addCardFromArray();
 
-const popupProfile = new PopupWithForm(popupProfileSelector, (object) => {
-  userInfo.setUserInfo(object);
+const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
+  userInfo.setUserInfo(data);
   popupProfile.close();
 });
 
-const popupAddCard = new PopupWithForm(popupAddCardSelector, (object) => {
-  section.addItem(object);
+const popupAddCard = new PopupWithForm(popupAddCardSelector, (data) => {
+  section.addItem(creatNewCard(data));
   popupAddCard.close();
 });
+
+const popupEditAvatar = new PopupWithForm(popupAvatarSelector, (data)=>{
+  editAvatar.src = data.avatar;
+})
+
+const deleteCardPopup = new PopupDeleteCard(popupDeleteSelector, ()=>{
+
+})
+console.log(deleteCardPopup)
+
+function creatNewCard(element) {
+  const card = new Card(element, selectorTemplate, popupImage.open);
+  const cardElement = card.createCard();
+  return cardElement;
+}
+
+
+//создаем экземпляр класса FormValidator для попапа редактирования и запускаем валидации
+const formProfileInfoValidator = new FormValidator(validationConfig, formEditProfileElement);
+formProfileInfoValidator.enableValidation();
+
+//создаем экземпляр класса FormValidator для попапа добавления карточки и запускаем валидации
+const formAddCardValidator = new FormValidator(validationConfig, formAddCardElement);
+formAddCardValidator.enableValidation();
+
+const formEditAvatarValidator = new FormValidator(validationConfig, formEditAvatarElement);
+formEditAvatarValidator.enableValidation();
+
+popupImage.setEventListeners();
+popupAddCard.setEventListeners();
+popupProfile.setEventListeners();
+popupEditAvatar.setEventListeners();
 
 //открытие попапа редактирования профиля при клике, введенные даные сохраняются, кнопка дизйблится
 popupEditButtonElement.addEventListener("click", () => {
@@ -61,14 +98,9 @@ popupAddButtonElement.addEventListener("click", () => {
   popupAddCard.open();
 });
 
-//создаем экземпляр класса FormValidator для попапа редактирования и запускаем валидации
-const formProfileInfoValidator = new FormValidator(validationConfig, formEditProfileElement);
-formProfileInfoValidator.enableValidation();
+popupEditAvatarButtomElement.addEventListener('click',()=>{
+  formEditAvatarValidator.resetErrorInput();
+  popupEditAvatar.open();
+})
 
-//создаем экземпляр класса FormValidator для попапа добавления карточки и запускаем валидации
-const formAddCardValidator = new FormValidator(validationConfig, formAddCardElement);
-formAddCardValidator.enableValidation();
 
-popupImage.setEventListeners();
-popupAddCard.setEventListeners();
-popupProfile.setEventListeners();

@@ -17,7 +17,7 @@ export default class FormValidator {
     errorTextElement.classList.add(this._textErrorClass);
   }
 
-  _hideInputError(errorTextElement, input) {
+  _hideInputError  (errorTextElement, input) {
     input.classList.remove(this._inputErrorClass);
     errorTextElement.textContent = "";
     errorTextElement.classList.remove(this._textErrorClass);
