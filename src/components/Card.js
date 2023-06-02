@@ -27,12 +27,12 @@ export default class Card {
   }
 
   _setEventListener() {
-    this._likeButtonElement.addEventListener('click',  this._handleLikeButton);
+    this._likeButtonElement.addEventListener('click', this._handleLikeButton);
     this._trashElement.addEventListener('click', this._handleTrashButton);
     this._photoElement.addEventListener('click', this._handleImagePopup);
   }
 
-  deleteCard(){
+  deleteCard() {
     this._cloneElement.remove();
     this._cloneElement = null; // убирает из дом дерева карточку
   }

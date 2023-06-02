@@ -9,6 +9,7 @@ import {
   popupImageSelector,
   cardContainerSelector,
   popupAddCardSelector,
+  popupDeleteSelector,
   profileNameSelector,
   profileJobSelector,
   validationConfig,
@@ -17,6 +18,7 @@ import {
   formEditAvatarElement,
   popupEditAvatarButtomElement,
   popupAvatarSelector,
+  editAvatar
 
 } from "../scripts/utils/Constants.js";
 import Card from "../components/Card.js";
@@ -27,8 +29,7 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupDeleteCard from '../components/PopupDeleteCard.js';
 
-const editAvatar = document.querySelector('.profile__avatar');
-const popupDeleteSelector = '.delete-popup';
+
 
 
 const userInfo = new UserInfo(profileNameSelector, profileJobSelector);
@@ -44,11 +45,11 @@ const popupAddCard = new PopupWithForm(popupAddCardSelector, (data) => {
   popupAddCard.close();
 });
 
-const popupEditAvatar = new PopupWithForm(popupAvatarSelector, (data)=>{
+const popupEditAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
   editAvatar.src = data.avatar;
 })
 
-const deleteCardPopup = new PopupDeleteCard(popupDeleteSelector, (element)=>{
+const deleteCardPopup = new PopupDeleteCard(popupDeleteSelector, (element) => {
   element.deleteCard();
   deleteCardPopup.close();
 });
@@ -62,12 +63,13 @@ function createNewCard(element) {
 const section = new Section({
   items: initialCards,
   renderer: (element) => {
-     section.addItem(createNewCard(element))
-    },
+    section.addItem(createNewCard(element))
   },
+},
   cardContainerSelector
 );
 section.addCardFromArray();
+
 //создаем экземпляр класса FormValidator для попапа редактирования и запускаем валидации
 const formProfileInfoValidator = new FormValidator(validationConfig, formEditProfileElement);
 formProfileInfoValidator.enableValidation();
@@ -98,7 +100,7 @@ popupAddButtonElement.addEventListener("click", () => {
   popupAddCard.open();
 });
 
-popupEditAvatarButtomElement.addEventListener('click',()=>{
+popupEditAvatarButtomElement.addEventListener('click', () => {
   formEditAvatarValidator.resetErrorInput();
   popupEditAvatar.open();
 })

@@ -26,6 +26,7 @@ export const initialCards = [
 ];
 
 export const profileElement = document.querySelector(".profile");
+export const editAvatar = document.querySelector('.profile__avatar');
 
 export const popupEditAvatarButtomElement = profileElement.querySelector('.profile__avatar-button');
 export const popupEditButtonElement = profileElement.querySelector(".profile__edit-button");
@@ -43,11 +44,12 @@ export const selectorTemplate = "#cardTemplate";
 export const popupProfileSelector = ".profile-popup";
 export const popupImageSelector = '.image-popup';
 export const popupAvatarSelector = '.avatar-popup';
- export const popupAddCardSelector = '.card-popup';
-export const cardContainerSelector =  '.elements__container';
+export const popupAddCardSelector = '.card-popup'; export const popupDeleteSelector = '.delete-popup';
+export const cardContainerSelector = '.elements__container';
 
 export const profileNameSelector = '.profile__name';
 export const profileJobSelector = '.profile__job';
+
 
 
 
