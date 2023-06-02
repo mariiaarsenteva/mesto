@@ -34,9 +34,6 @@ const popupDeleteSelector = '.delete-popup';
 const userInfo = new UserInfo(profileNameSelector, profileJobSelector);
 const popupImage = new PopupWithImage(popupImageSelector);
 
-
-
-
 const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
   userInfo.setUserInfo(data);
   popupProfile.close();
@@ -56,7 +53,11 @@ const deleteCardPopup = new PopupDeleteCard(popupDeleteSelector, (element)=>{
   deleteCardPopup.close();
 });
 
-console.log(deleteCardPopup);
+function createNewCard(element) {
+  const card = new Card(element, selectorTemplate, popupImage.open, deleteCardPopup.open);
+  const cardElement = card.createCard();
+  return cardElement;
+}
 
 const section = new Section({
   items: initialCards,
@@ -67,13 +68,6 @@ const section = new Section({
   cardContainerSelector
 );
 section.addCardFromArray();
-
-function createNewCard(element) {
-  const card = new Card(element, selectorTemplate, popupImage.open, deleteCardPopup.open);
-  const cardElement = card.createCard();
-  return cardElement;
-}
-
 //создаем экземпляр класса FormValidator для попапа редактирования и запускаем валидации
 const formProfileInfoValidator = new FormValidator(validationConfig, formEditProfileElement);
 formProfileInfoValidator.enableValidation();
