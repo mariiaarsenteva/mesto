@@ -13,56 +13,5 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-}
-
-
-
-.profile__avatar-button{
-  /* outline: 1px yellow solid; */
-  margin: 0;
-  padding: 0;
-  width: 120px;
-  height: 120px;
-  margin-right: 30px;
-  align-self: center;
-
-
-}
-
-@media screen and (max-width: 1023px) {
-  .profile__avatar-button {
-    padding-right: 0;
-    padding-bottom: 26px;
-
-   }
-}
-
-
-.elements__like-container{
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-margin: 0;
-padding: 0;
-outline: 1px red solid;
- margin-right: 20px;
-}
-
-
-
-.elements__like-counter{
-display:flex;
-justify-content: center;
-align-content: center;
-padding: 0;
-margin: 0;
-font-style: normal;
-font-weight: 400;
-font-family: 'Inter';
-font-size: 13px;
-line-height: 16px;
-text-align: center;
-color: #000;
-outline: 1px red solid;
+  z-index: 2;
 }
