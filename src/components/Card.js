@@ -6,10 +6,12 @@ export default class Card {
     this._selectorTemplate = selectorTemplate;
     this._openImagePopup = openImagePopup;
     this._openDeletePopup = openDeletePopup;
+
   }
 
   _getTemplateClone() {
     return document.querySelector(this._selectorTemplate).content.querySelector('.elements__card-container').cloneNode(true); // возвращает клонированную разметку
+
   }
 
   _handleLikeButton = () => {
@@ -17,10 +19,7 @@ export default class Card {
   }
 
   _handleTrashButton = () => {
-    //this._trashElement.closest(".elements__card-container").remove();
-    //this._cloneElement - это ссылка на саму карточку, поэтому не нужно ничего искать, можно сразу написать:
-    this._cloneElement.remove();
-    this._cloneElement = null; // убирает из дом дерева карточку
+    this._openDeletePopup(this)
   }
 
   _handleImagePopup = () => {
@@ -28,9 +27,14 @@ export default class Card {
   }
 
   _setEventListener() {
-    this._likeButtonElement.addEventListener('click', this._handleLikeButton);
+    this._likeButtonElement.addEventListener('click',  this._handleLikeButton);
     this._trashElement.addEventListener('click', this._handleTrashButton);
     this._photoElement.addEventListener('click', this._handleImagePopup);
+  }
+
+  deleteCard(){
+    this._cloneElement.remove();
+    this._cloneElement = null; // убирает из дом дерева карточку
   }
 
   createCard() {
