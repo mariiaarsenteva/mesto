@@ -29,10 +29,26 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupDeleteCard from '../components/PopupDeleteCard.js';
 import Api from '../components/Api.js';
 
+const api = new Api ({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
+  headers: {
+    authorization: '56ca6cc4-cb7f-453a-ad4f-0eadc019fb12',
+    'Content-Type': 'application/json'
+  }
+});
 
+initialCards.forEach(element => {
+  element.title = element.name;
+  delete element.mane;
+})
 
 const userInfo = new UserInfo(profileNameSelector, profileJobSelector);
 const popupImage = new PopupWithImage(popupImageSelector);
+
+const deleteCardPopup = new PopupDeleteCard(popupDeleteSelector, (element) => {
+  element.deleteCard();
+  deleteCardPopup.close();
+});
 
 const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
   userInfo.setUserInfo(data);
@@ -48,10 +64,7 @@ const popupEditAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
   editAvatar.src = data.avatar;
 })
 
-const deleteCardPopup = new PopupDeleteCard(popupDeleteSelector, (element) => {
-  element.deleteCard();
-  deleteCardPopup.close();
-});
+
 
 function createNewCard(element) {
   const card = new Card(element, selectorTemplate, popupImage.open, deleteCardPopup.open);
@@ -59,15 +72,13 @@ function createNewCard(element) {
   return cardElement;
 }
 
-const section = new Section({
-  items: initialCards,
-  renderer: (element) => {
+const section = new Section((element) => {
     section.addItem(createNewCard(element))
-  },
-},
-  cardContainerSelector
-);
-section.addCardFromArray();
+},cardContainerSelector);
+
+
+//добавляем начальные карточки настраницу
+section.addCardFromArray(initialCards);
 
 //создаем экземпляр класса FormValidator для попапа редактирования и запускаем валидации
 const formProfileInfoValidator = new FormValidator(validationConfig, formEditProfileElement);
@@ -105,3 +116,8 @@ popupEditAvatarButtomElement.addEventListener('click', () => {
 })
 
 
+Promise.all([api.getInfo(), api.getCards()])
+.then(([dataUser, dataCard])=> {
+  console.log(dataUser);
+  console.log(dataCard);
+})
