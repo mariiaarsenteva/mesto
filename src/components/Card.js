@@ -3,7 +3,7 @@ export default class Card {
 
     this._cardData = cardData;
     this._link = cardData.link;
-    this._name = cardData.title;
+    this._name = cardData.name;
     this._myId = cardData.myid;
     // this._ownerId = cardData.owner._id;
     this._cardId = cardData._id;
@@ -30,9 +30,9 @@ export default class Card {
     this._openDeletePopup(this)
   }
 
-  _handleImagePopup = () => {
-    this._openImagePopup(this._cardData);
-  }
+  // _handleImagePopup = () => {
+  //   this._openImagePopup(this._cardData);
+  // }
 
   _setEventListener() {
     this._likeButtonElement.addEventListener('click', this._handleLikeButton);

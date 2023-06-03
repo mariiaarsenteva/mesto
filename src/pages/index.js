@@ -38,11 +38,6 @@ const api = new Api({
   },
 });
 
-initialCards.forEach((element) => {
-  element.title = element.name;
-  delete element.name;
-});
-
 const userInfo = new UserInfo(profileNameSelector, profileJobSelector, profileAvatarSelector);
 const popupImage = new PopupWithImage(popupImageSelector);
 
