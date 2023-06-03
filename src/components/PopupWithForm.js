@@ -22,9 +22,9 @@ export default class PopupWithForm extends Popup {
     return this._values;
   }
 
-  setInputValue(object) {
+  setInputValue(userData) {
     this._inputList.forEach((input) => {
-      input.value = object[input.name];
+      input.value = userData[input.name];
     });
   }
 

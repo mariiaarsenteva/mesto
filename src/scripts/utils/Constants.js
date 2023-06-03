@@ -53,6 +53,7 @@ export const profileJobSelector = '.profile__job';
 
 
 
+
 // переменая с объектом для валидации
 export const validationConfig = {
   formSelector: ".popup__form", // все формы в документе

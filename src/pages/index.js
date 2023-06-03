@@ -1,4 +1,4 @@
-import './index.css';
+import "./index.css";
 
 import {
   initialCards,
@@ -17,8 +17,7 @@ import {
   formAddCardElement,
   formEditAvatarElement,
   popupEditAvatarButtomElement,
-  popupAvatarSelector,
-  editAvatar
+  popupAvatarSelector
 } from "../scripts/utils/Constants.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
@@ -26,23 +25,25 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import PopupDeleteCard from '../components/PopupDeleteCard.js';
-import Api from '../components/Api.js';
+import PopupDeleteCard from "../components/PopupDeleteCard.js";
+import Api from "../components/Api.js";
 
-const api = new Api ({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
+export const profileAvatarSelector = '.profile__avatar';
+
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-66",
   headers: {
-    authorization: '56ca6cc4-cb7f-453a-ad4f-0eadc019fb12',
-    'Content-Type': 'application/json'
-  }
+    authorization: "56ca6cc4-cb7f-453a-ad4f-0eadc019fb12",
+    "Content-Type": "application/json",
+  },
 });
 
-initialCards.forEach(element => {
+initialCards.forEach((element) => {
   element.title = element.name;
-  delete element.mane;
-})
+  delete element.name;
+});
 
-const userInfo = new UserInfo(profileNameSelector, profileJobSelector);
+const userInfo = new UserInfo(profileNameSelector, profileJobSelector, profileAvatarSelector);
 const popupImage = new PopupWithImage(popupImageSelector);
 
 const deleteCardPopup = new PopupDeleteCard(popupDeleteSelector, (element) => {
@@ -51,44 +52,79 @@ const deleteCardPopup = new PopupDeleteCard(popupDeleteSelector, (element) => {
 });
 
 const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
-  userInfo.setUserInfo(data);
+  api.setUserInfo(data)
+    .then(res => {
+      userInfo.setUserInfo({
+        name: res.name,
+        job: res.about,
+        avatar: res.avatar
+      })
+    })
+    .catch((error => console.error(`Ошибка редактирования ${error}`)))
+    .finally()
   popupProfile.close();
 });
 
+
 const popupAddCard = new PopupWithForm(popupAddCardSelector, (data) => {
-  section.addItem(createNewCard(data));
-  popupAddCard.close();
+  api.addCards(data)
+  .then(dataCard => {
+    dataCard.myid = userInfo.getid()
+    section.addItemPrepend(createNewCard(dataCard))
+    popupAddCard.close();
+    })
+    .catch((error => console.error(`Ошибка создания карточки ${error}`)))
+    .finally()
 });
 
 const popupEditAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
-  editAvatar.src = data.avatar;
-})
-
-
+  api.setNewavatar(data)
+    .then(res => {
+      console.log(res)
+      userInfo.setUserInfo({
+        name: res.name,
+        job: res.about,
+        avatar: res.avatar
+      })
+    })
+    .catch((error => console.error(`Ошибка обновления аватара ${error}`)))
+    .finally()
+});
 
 function createNewCard(element) {
-  const card = new Card(element, selectorTemplate, popupImage.open, deleteCardPopup.open);
+  const card = new Card(
+    element,
+    selectorTemplate,
+    popupImage.open,
+    deleteCardPopup.open
+  );
   const cardElement = card.createCard();
   return cardElement;
 }
 
 const section = new Section((element) => {
-    section.addItem(createNewCard(element))
-},cardContainerSelector);
+  section.addItemAppend(createNewCard(element));
+}, cardContainerSelector);
 
-
-//добавляем начальные карточки настраницу
-section.addCardFromArray(initialCards);
 
 //создаем экземпляр класса FormValidator для попапа редактирования и запускаем валидации
-const formProfileInfoValidator = new FormValidator(validationConfig, formEditProfileElement);
+const formProfileInfoValidator = new FormValidator(
+  validationConfig,
+  formEditProfileElement
+);
 formProfileInfoValidator.enableValidation();
 
 //создаем экземпляр класса FormValidator для попапа добавления карточки и запускаем валидации
-const formAddCardValidator = new FormValidator(validationConfig, formAddCardElement);
+const formAddCardValidator = new FormValidator(
+  validationConfig,
+  formAddCardElement
+);
 formAddCardValidator.enableValidation();
 
-const formEditAvatarValidator = new FormValidator(validationConfig, formEditAvatarElement);
+const formEditAvatarValidator = new FormValidator(
+  validationConfig,
+  formEditAvatarElement
+);
 formEditAvatarValidator.enableValidation();
 
 popupImage.setEventListeners();
@@ -110,14 +146,19 @@ popupAddButtonElement.addEventListener("click", () => {
   popupAddCard.open();
 });
 
-popupEditAvatarButtomElement.addEventListener('click', () => {
+popupEditAvatarButtomElement.addEventListener("click", () => {
   formEditAvatarValidator.resetErrorInput();
   popupEditAvatar.open();
-})
-
+});
 
 Promise.all([api.getInfo(), api.getCards()])
-.then(([dataUser, dataCard])=> {
-  console.log(dataUser);
-  console.log(dataCard);
-})
+  .then(([dataUser, dataCard]) => {
+    dataCard.forEach(element => element.myid = dataUser._id);
+    userInfo.setUserInfo({
+      name: dataUser.name,
+      job: dataUser.about,
+      avatar: dataUser.avatar,
+    });
+    section.addCardFromArray(dataCard);
+  })
+  .catch((error => console.error(`Ошибка редактирования ${error}`)))
