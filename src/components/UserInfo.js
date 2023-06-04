@@ -18,11 +18,11 @@ export default class UserInfo {
     this._profileAvatar.src = avatar;
   }
 
-  setid (id) {
+  setId (id) {
     this._id = id;
   }
 
-  getid () {
+  getId () {
     return this._id;
   }
 }

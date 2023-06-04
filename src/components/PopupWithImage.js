@@ -10,7 +10,7 @@ export default class PopupWithIage extends Popup {
   open = (cardData) => {
     this._popupImage.src = cardData.link;
     this._popupImage.alt = cardData.title;
-    this._imagePopupCaption.textContent = cardData.title;
+    this._imagePopupCaption.textContent = cardData.name;
     super.open();
   };
 }

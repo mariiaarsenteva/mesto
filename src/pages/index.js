@@ -1,7 +1,6 @@
 import "./index.css";
 
 import {
-  initialCards,
   popupEditButtonElement,
   popupAddButtonElement,
   selectorTemplate,
@@ -12,12 +11,14 @@ import {
   popupDeleteSelector,
   profileNameSelector,
   profileJobSelector,
+  profileAvatarSelector,
   validationConfig,
   formEditProfileElement,
   formAddCardElement,
   formEditAvatarElement,
   popupEditAvatarButtomElement,
-  popupAvatarSelector
+  popupAvatarSelector,
+  defaultDeleteText
 } from "../scripts/utils/Constants.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
@@ -28,7 +29,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupDeleteCard from "../components/PopupDeleteCard.js";
 import Api from "../components/Api.js";
 
-export const profileAvatarSelector = '.profile__avatar';
 
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-66",
@@ -41,9 +41,14 @@ const api = new Api({
 const userInfo = new UserInfo(profileNameSelector, profileJobSelector, profileAvatarSelector);
 const popupImage = new PopupWithImage(popupImageSelector);
 
-const deleteCardPopup = new PopupDeleteCard(popupDeleteSelector, (element) => {
-  element.deleteCard();
-  deleteCardPopup.close();
+const deleteCardPopup = new PopupDeleteCard(popupDeleteSelector, ({ card, cardId }) => {
+  api.removeCard(cardId)
+    .then(() => {
+      card.deleteCardElement();
+      deleteCardPopup.close();
+    })
+    .catch((error => console.error(`Ошибка удаления карточки ${error}`)))
+    .finally(() => deleteCardPopup._submitFunction.textContent = defaultDeleteText)
 });
 
 const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
@@ -53,37 +58,39 @@ const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
         name: res.name,
         job: res.about,
         avatar: res.avatar
-      })
+      });
+      popupProfile.close();
     })
     .catch((error => console.error(`Ошибка редактирования ${error}`)))
-    .finally()
-  popupProfile.close();
-});
+    .finally(() => popupProfile.setDefaultText())
 
+});
 
 const popupAddCard = new PopupWithForm(popupAddCardSelector, (data) => {
   api.addCards(data)
-  .then(dataCard => {
-    dataCard.myid = userInfo.getid()
-    section.addItemPrepend(createNewCard(dataCard))
-    popupAddCard.close();
+    .then(dataCard => {
+      dataCard.myid = userInfo.getId()
+      section.addItemPrepend(createNewCard(dataCard))
+      popupAddCard.close();
     })
     .catch((error => console.error(`Ошибка создания карточки ${error}`)))
-    .finally()
+    .finally(() => popupAddCard.setDefaultText())
+
 });
 
 const popupEditAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
-  api.setNewavatar(data)
+  api.setNewAvatar(data)
     .then(res => {
-      console.log(res)
       userInfo.setUserInfo({
         name: res.name,
         job: res.about,
         avatar: res.avatar
       })
+      popupEditAvatar.close();
     })
     .catch((error => console.error(`Ошибка обновления аватара ${error}`)))
-    .finally()
+    .finally(() => popupEditAvatar.setDefaultText())
+
 });
 
 function createNewCard(element) {
@@ -91,8 +98,22 @@ function createNewCard(element) {
     element,
     selectorTemplate,
     popupImage.open,
-    deleteCardPopup.open
-  );
+    deleteCardPopup.open,
+    (likeButtonElement, cardId) => {
+      if (likeButtonElement.classList.contains('elements__like-button_active')) {
+        api.removeLikes(cardId)
+          .then(res => {
+            card.toggleLike(res.likes);
+          })
+          .catch((error => console.error(`Ошибка снятия лайка ${error}`)))
+      } else {
+        api.addLikes(cardId)
+          .then(res => {
+            card.toggleLike(res.likes)
+          })
+          .catch((error => console.error(`Ошибка добавления лайка ${error}`)))
+      }
+    });
   const cardElement = card.createCard();
   return cardElement;
 }
@@ -154,6 +175,7 @@ Promise.all([api.getInfo(), api.getCards()])
       job: dataUser.about,
       avatar: dataUser.avatar,
     });
+    userInfo.setId(dataUser._id)
     section.addCardFromArray(dataCard);
   })
   .catch((error => console.error(`Ошибка редактирования ${error}`)))

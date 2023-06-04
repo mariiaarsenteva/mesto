@@ -49,8 +49,9 @@ export const cardContainerSelector = '.elements__container';
 
 export const profileNameSelector = '.profile__name';
 export const profileJobSelector = '.profile__job';
+export const profileAvatarSelector = '.profile__avatar';
 
-
+export const defaultDeleteText = "Дa"
 
 
 

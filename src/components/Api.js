@@ -37,7 +37,7 @@ export default class Api {
       .then(this._checkResponse)
   };
 
-  setNewavatar(data) {
+  setNewAvatar(data) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
@@ -57,6 +57,36 @@ export default class Api {
         name: data.title,
         link: data.link,
       })
+    })
+      .then(this._checkResponse)
+  }
+
+  addLikes(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._authorization
+      }
+    })
+      .then(this._checkResponse)
+  }
+
+  removeLikes(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization
+      }
+    })
+      .then(this._checkResponse)
+  }
+
+  removeCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization
+      }
     })
       .then(this._checkResponse)
   }
